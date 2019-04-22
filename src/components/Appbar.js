@@ -4,7 +4,7 @@ import { StyleSheet, View, Text } from 'react-native';
 class Appbar extends React.Component {
   render() {
     return (
-      <View>
+      <View style={styles.appbar}>
         <View>
           <Text style={styles.appbarTitle}>MEMOT</Text>
         </View>
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.5,
     shadowRadius: 3,
     zIndex: 10,

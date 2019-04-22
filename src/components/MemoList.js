@@ -4,9 +4,51 @@ import { StyleSheet, View, Text } from 'react-native';
 class MemoList extends React.Component {
   render() {
     return(
-      <View>
-        
+      <View style={styles.memoList}>
+        <View style={styles.memoListItem}>
+          <Text style={styles.memoTitle}>講座のアイテム</Text>
+          <Text style={styles.memoDate}>2019/04/22</Text>
+        </View>
+        <View style={styles.memoListItem}>
+          <Text style={styles.memoTitle}>講座のアイテム</Text>
+          <Text style={styles.memoDate}>2019/04/22</Text>
+        </View>
+        <View style={styles.memoListItem}>
+          <Text style={styles.memoTitle}>講座のアイテム</Text>
+          <Text style={styles.memoDate}>2019/04/22</Text>
+        </View>
+        <View style={styles.memoListItem}>
+          <Text style={styles.memoTitle}>講座のアイテム</Text>
+          <Text style={styles.memoDate}>2019/04/22</Text>
+        </View>
+        <View style={styles.memoListItem}>
+          <Text style={styles.memoTitle}>講座のアイテム</Text>
+          <Text style={styles.memoDate}>2019/04/22</Text>
+        </View>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  memoList: {
+    width: '100%',
+    flex: 1,
+  },
+  memoListItem: {
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+    backgroundColor: '#fff',
+  },
+  memoTitle: {
+    fontSize: 18,
+
+  },
+  memoDate: {
+    fontSize: 14,
+
+  },
+});
+
+export default MemoList;
