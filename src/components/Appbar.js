@@ -25,14 +25,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 0 },
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.5,
     shadowRadius: 3,
     zIndex: 10,
   },
   appbarTitle: {
     color: '#fff',
-    size: 18,
+    fontSize: 18,
   }
 });
 

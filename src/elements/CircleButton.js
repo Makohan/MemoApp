@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
-class CirclueButton extends React.Component {
+class CircleButton extends React.Component {
   render() {
     return (
-      <View style={styles.CirclueButton}>
+      <View style={styles.circleButton}>
         <Text style={styles.circleButtonTitle}>
           {this.props.children}
         </Text>
@@ -14,7 +14,7 @@ class CirclueButton extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  curcleButton: {
+  circleButton: {
     position:'absolute',
     bottom: 32,
     right:32,
@@ -24,13 +24,17 @@ const styles = StyleSheet.create({
 
     borderRadius: 24,
     justifyContent: 'center',
-    alightItems: 'center',
+    alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.5,
     shadowRadius: 3,
   },
   CirclueButtonTitle: {
-
+    fontSize: 32,
+    lineHeight: 32,
+    color: '#fff',
   }
 });
+
+export default CircleButton;
