@@ -1,13 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import BodyText from './src/elements/BodyText';
+import { StyleSheet, View } from 'react-native';
 
-export default class App extends React.Component {
+
+export default class App　extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Hello!</Text>
-        <BodyText>Hi</BodyText>
+      <View style={styles.container} >
+        <Appbar />
+        <MemoListScreen />
       </View>
     );
   }
@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    paddingTop: 78,
   },
 });
