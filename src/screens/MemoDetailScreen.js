@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
+import CircleButton from '../elements/CircleButton';
 
 class MemoDetailScreen extends React.Component {
   render() {
@@ -19,7 +20,9 @@ class MemoDetailScreen extends React.Component {
           <Text></Text>
         </View>
 
-        <CircleButtom color="white" style={styles.editButton}>+</CircleButtom>
+        <CircleButton color="white" style={styles.editButton}>
+          {'\uf303'}
+        </CircleButton>
       </View>
     );
   }
