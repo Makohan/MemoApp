@@ -1,29 +1,29 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { createAppContainer, createStackNavigator } from 'react-navigation';
 
-import Appbar from './src/components/Appbar';
 import LoginScreen from './src/screens/LoginScreen';
-//import MemoEditScreen from './src/screens/MemoEditScreen';
-// import MemoDetailScreen from './src/screens/MemoDetailScreen';
-// import MemoListScreen from './src/screens/MemoListScreen';
+import SignupScreen from './src/screens/SignupScreen';
+import MemoListScreen from './src/screens/MemoListScreen';
+import MemoDetailScreen from './src/screens/MemoDetailScreen';
+import MemoEditScreen from './src/screens/MemoEditScreen';
 
-export default class App　extends React.Component {
-  render() {
-    return (
-      <View style={styles.container} >
-        <Appbar />
-        <LoginScreen />
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    paddingTop: 78,
+const App = createStackNavigator({
+  Home: { screen: MemoListScreen },
+  MemoDetailScreen: { screen: MemoDetailScreen },
+  MemoEditScreen: { screen: MemoEditScreen },
+  LoginScreen: { screen: LoginScreen },
+  SignupScreen: { screen: SignupScreen },
+}, {
+  navigationOption: {
+    headerTitle: 'Memot',
+    headerStyle: {
+      backgroundColor: '#265366',
+    },
+    headerTitleStyle: {
+      color: '#fff',
+    }
   },
-});
+}
+);
+
+export default createAppContainer(App);
