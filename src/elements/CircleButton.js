@@ -35,7 +35,7 @@ class CircleButton extends React.Component {
     }
 
     return (
-      <TouchTouchableHighlight style={[styles.container, style]} onPress={onPress} underlayColor="transparent" >
+      <TouchableHighlight style={[styles.container, style]} onPress={onPress} underlayColor="transparent" >
         <View style={[styles.circleButton, style, { backgroundColor: bgColor }]}>
           {
             this.state.fontLoaded ? (
@@ -43,7 +43,7 @@ class CircleButton extends React.Component {
             ) : null
           }
         </View>
-      </TouchTouchableHighlight>
+      </TouchableHighlight>
     );
   }
 }
