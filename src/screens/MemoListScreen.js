@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+
 import firebase from 'firebase';
 
 import MemoList from '../components/MemoList';
@@ -17,10 +18,8 @@ class MemoListScreen extends React.Component {
       .get()
       .then((snapshot) => {
         const memoList = [];
-        console.log('list成功');
         snapshot.forEach((doc) => {
-          console.log(doc.data());
-          memoList.push(doc.data());
+          memoList.push({ ...doc.data(), key: doc.id });
         })
         this.setState({ memoList });
       })

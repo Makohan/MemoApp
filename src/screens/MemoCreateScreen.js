@@ -6,14 +6,14 @@ import CircleButton from '../elements/CircleButton';
 
 class MemoCreateScreen extends React.Component {  
   state = {
-    body: 'test',
+    body: 'メモの作成',
   }
 
   handlePress() {
     const db = firebase.firestore();
     const { currentUser } = firebase.auth();
     db.collection(`users/${currentUser.uid}/memos`).add({
-      body: this.state.body,
+      body: state.body,
       createdOn: new Date(),
     })
       .then((docRef) => {
