@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, TouchableHighlight } from 'react-native';
-import { Font } from 'expo';
+import * as Font from 'expo-font'
 import { createIconSet } from '@expo/vector-icons';
 import fontAwsome from '../../assets/fonts/fa-solid-900.ttf';
 

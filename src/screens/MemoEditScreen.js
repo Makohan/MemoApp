@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, TextInput } from 'react-native';
-
 import CircleButton from '../elements/CircleButton';
+import firebase from 'firebase';
 
-class MemoEditScreen extends React.Component {
+class MemoEditScreen extends React.Component {  
   render() {
     return(
       <View style={styles.container}>
