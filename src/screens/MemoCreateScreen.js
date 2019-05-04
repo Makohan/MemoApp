@@ -6,14 +6,14 @@ import CircleButton from '../elements/CircleButton';
 
 class MemoCreateScreen extends React.Component {  
   state = {
-    body: 'メモの作成',
+    body: '',
   }
 
   handlePress() {
     const db = firebase.firestore();
     const { currentUser } = firebase.auth();
     db.collection(`users/${currentUser.uid}/memos`).add({
-      body: state.body,
+      body: this.state.body,
       createdOn: new Date(),
     })
       .then((docRef) => {
@@ -34,7 +34,7 @@ class MemoCreateScreen extends React.Component {
           value={this.state.body}
           onChangeText={(text) => { this.setState({body: text})}}
         />
-        <CircleButton name='check' onPress={this.handlePress} />
+        <CircleButton name='check' onPress={this.handlePress.bind(this)} />
       </View>
     );
   }
