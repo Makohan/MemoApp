@@ -20,8 +20,6 @@ class MemoEditScreen extends React.Component {
 
   handlePress() {
     const { currentUser } = firebase.auth();
-    console.log('currentUser');
-    console.log(currentUser);
     const newDate = firebase.firestore.Timestamp.now();
     firebase.firestore().collection(`users/${currentUser.uid}/memos`).doc(this.state.key)
       .update({
@@ -55,6 +53,8 @@ class MemoEditScreen extends React.Component {
               createdOn: new Date(),
             }); 
           }}
+          underlineColorAndroid="transparent"
+          textAlignVertical="top"
         />
         <CircleButton 
           name='check'

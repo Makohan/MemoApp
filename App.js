@@ -1,5 +1,13 @@
+/*
+コマンド
+expo start
+emulator -avd Pixel_2_API_Q -dns-server 8.8.8.8
+// expo android --offline
+*/
+
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import firebase from 'firebase';
+import { Platform } from 'react-native';
 
 import LoginScreen from './src/screens/LoginScreen';
 import SignupScreen from './src/screens/SignupScreen';
@@ -32,8 +40,20 @@ const App = createStackNavigator({
 }, {
   defaultNavigationOptions: {
     headerTitle: 'Memot',
+    headerTintColor: '#fff',
+    headerBackTitle: null,
     headerStyle: {
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.2,
+      shadowRadius: 2,
       backgroundColor: '#265366',
+      ...Platform.select({
+        android: {
+          height: 80,
+          paddingTop: 20,
+        },
+      })
     },
     headerTitleStyle: {
       color: '#fff',
