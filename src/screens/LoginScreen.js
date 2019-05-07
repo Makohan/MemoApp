@@ -1,25 +1,55 @@
 import React from 'react';
+import { SecureStore } from 'expo';
 import { StyleSheet, View, Text, TextInput, TouchableHighlight, TouchableOpacity } from 'react-native';
 import firebase from 'firebase';
 import { StackActions, NavigationActions } from 'react-navigation';
+
+import Loading from '../elements/Loading';
 
 class LoginScreen extends React.Component {
   state = {
     email: 'test1@example.com',
     password: '123456',
+    isLoading: true,
+  }
+
+  // Reactコンポーネントをマウント（≒レンダリング）した後に実行する
+  async componentDidMount() {
+    // 前回入力したID/パスワードで自動ログインする
+    const email = await SecureStore.getItemAsync('email');
+    const password = await SecureStore.getItemAsync('password');
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(() => {
+        this.setState({ isLoading: false });
+        this.navigationToHome();
+      });
+  }
+
+  navigationToHome() {
+    console.log('CCC');
+
+    // ログイン後にBackボタンを無効にするための処理
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'Home' }),
+      ],
+    });
+
+    // 画面遷移
+    console.log('DDD');
+    this.props.navigation.dispatch(resetAction);
   }
 
   handleSubmit() {
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then((user) => {
-        // ログイン後にBackボタンを無効にするための処理
-        const resetAction = StackActions.reset({
-          index: 0,
-          actions: [
-            NavigationActions.navigate({ routeName: 'Home' }),
-          ]
-        });
-        this.props.navigation.dispatch(resetAction);
+      .then(() => {
+        // 入力したID/パスワードを保持する
+        console.log('AAA');
+        SecureStore.setItemAsync('email', this.state.email);
+        SecureStore.setItemAsync('password', this.state.password);
+        console.log('BBB');
+        this.navigationToHome();
       })
       .catch((error) => {
         console.log(error);
@@ -32,6 +62,7 @@ class LoginScreen extends React.Component {
 
   render() {
     return(
+      <Loading text="ログイン中" isLoading={this.state.isLoading} />
       <View style={styles.container}>
         <Text style={styles.title}>
           ログイン
