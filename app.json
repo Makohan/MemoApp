@@ -1,7 +1,6 @@
 {
   "expo": {
     "name": "MemoApp",
-    "description": "Simple Memo App",
     "slug": "MemoApp",
     "privacy": "public",
     "sdkVersion": "32.0.0",
@@ -24,8 +23,7 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "INPUT MY IDENTIFIER like mydomain.com"
+      "supportsTablet": true
     }
   }
 }
