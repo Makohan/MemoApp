@@ -8,7 +8,7 @@ const Loading = (props) => {
   }
 
   return (
-    <View> style={styles.container}>
+    <View style={styles.container}>
       <ActivityIndicator size="large" />
       <Text style={styles.text}>{text}</Text>
     </View>
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     margin: 20,
-  }
+  },
 });
 
 export default Loading;

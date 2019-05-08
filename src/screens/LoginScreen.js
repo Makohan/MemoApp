@@ -10,7 +10,7 @@ class LoginScreen extends React.Component {
   state = {
     email: 'test1@example.com',
     password: '123456',
-    isLoading: true,
+    isLoading: false,
   }
 
   // Reactコンポーネントをマウント（≒レンダリング）した後に実行する
@@ -18,6 +18,8 @@ class LoginScreen extends React.Component {
     // 前回入力したID/パスワードで自動ログインする
     const email = await SecureStore.getItemAsync('email');
     const password = await SecureStore.getItemAsync('password');
+    if (email == null || password == null) return;
+
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(() => {
         this.setState({ isLoading: false });
@@ -62,15 +64,15 @@ class LoginScreen extends React.Component {
 
   render() {
     return(
-      <Loading text="ログイン中" isLoading={this.state.isLoading} />
       <View style={styles.container}>
+        <Loading text="ログイン中" isLoading={this.state.isLoading} />
         <Text style={styles.title}>
           ログイン
         </Text>
         <TextInput 
           style={styles.input}
           value={this.state.email}
-          onChangeText={(text) => {this.setState({ email: text})}}
+          onChangeText={(text) => {this.setState({ email: text}); }}
           autoCapitalize="none"
           autoCorrect={false}
           placeholder='Email Address'
@@ -79,7 +81,7 @@ class LoginScreen extends React.Component {
         <TextInput
           style={styles.input}
           value={this.state.password}
-          onChangeText={(text) => {this.setState({ password: text})}}
+          onChangeText={(text) => {this.setState({ password: text}); }}
           autoCapitalize="none"
           autoCorrect={false}
           placeholder='Password'
@@ -87,7 +89,7 @@ class LoginScreen extends React.Component {
           underlineColorAndroid="transparent"
         />
         <TouchableHighlight style={styles.button} onPress={this.handleSubmit.bind(this)} underlayColor='#C70F66'>
-          <Text style={styles.buttnTitle}>ログインする</Text>
+          <Text style={styles.buttonTitle}>ログインする</Text>
         </TouchableHighlight>
 
         <TouchableOpacity style={styles.signup} onPress={this.handlePress.bind(this)}>
@@ -127,7 +129,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: '70%',
   },
-  buttnTitle: {
+  buttonTitle: {
     fontSize: 18,
     color: '#fff',
     alignSelf: 'center',
