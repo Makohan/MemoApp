@@ -10,7 +10,7 @@ class LoginScreen extends React.Component {
   state = {
     email: 'test1@example.com',
     password: '123456',
-    isLoading: false,
+    isLoading: true,
   }
 
   // Reactコンポーネントをマウント（≒レンダリング）した後に実行する
@@ -18,7 +18,10 @@ class LoginScreen extends React.Component {
     // 前回入力したID/パスワードで自動ログインする
     const email = await SecureStore.getItemAsync('email');
     const password = await SecureStore.getItemAsync('password');
-    if (email == null || password == null) return;
+    if (email == null || password == null) {
+      this.setState({ isLoading: false});
+      return;
+    }
 
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(() => {
@@ -28,8 +31,6 @@ class LoginScreen extends React.Component {
   }
 
   navigationToHome() {
-    console.log('CCC');
-
     // ログイン後にBackボタンを無効にするための処理
     const resetAction = StackActions.reset({
       index: 0,
@@ -39,7 +40,6 @@ class LoginScreen extends React.Component {
     });
 
     // 画面遷移
-    console.log('DDD');
     this.props.navigation.dispatch(resetAction);
   }
 
@@ -47,10 +47,8 @@ class LoginScreen extends React.Component {
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
         // 入力したID/パスワードを保持する
-        console.log('AAA');
         SecureStore.setItemAsync('email', this.state.email);
         SecureStore.setItemAsync('password', this.state.password);
-        console.log('BBB');
         this.navigationToHome();
       })
       .catch((error) => {
