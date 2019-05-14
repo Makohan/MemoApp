@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^8.0.0",
-    "eslint-plugin-react": "^7.12.4",
     "expo": "^32.0.0",
     "firebase": "^5.10.1",
     "react": "16.5.0",
@@ -19,7 +18,9 @@
     "babel-eslint": "^10.0.1",
     "babel-preset-expo": "^5.0.0",
     "eslint": "^5.16.0",
-    "eslint-config-airbnb": "^17.1.0"
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.13.0"
   },
   "private": true
 }
