@@ -32,10 +32,18 @@ class MemoListScreen extends React.Component {
     this.props.navigation.navigate('MemoCreate');
   }
 
+  deleteMemo(deleteMemo) {
+    console.log('deleteMemo:' + deleteMemo);
+    const newMemoList = this.state['memoList'].filter(memo => memo !== deleteMemo);
+    this.setState({
+      memoList: newMemoList,
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <MemoList memoList={this.state.memoList} navigation={this.props.navigation} />
+        <MemoList memoList={this.state.memoList} navigation={this.props.navigation} deleteMemo={(i) => this.deleteMemo(i) } />
         <CircleButton name='plus' onPress={this.handlePress.bind(this)} />
       </View>
     );

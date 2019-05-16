@@ -1,20 +1,35 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableHighlight, FlatList } from 'react-native';
+import Swipeout from 'react-native-swipeout';
 
 const dateString = (date) => {
   const str = date.toDate().toISOString();
   return str.split('T')[0];
 }
 
+
+
 class MemoList extends React.Component {
   renderMemo({ item }) {
+    // Buttons
+    const swipeoutBtns = [
+      {
+        text: 'Delete',
+        backgroundColor: 'red',
+        underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
+        onPress: () => { this.props.deleteMemo(item) },
+      }
+    ];
+
     return (
-      <TouchableHighlight onPress={() => {this.props.navigation.navigate('MemoDetail', { memo: item })}}>
-      <View style={styles.memoListItem}>
-        <Text style={styles.memoTitle}>{item.body.substring(0, 10)}</Text>
-        <Text style={styles.memoDate}>{dateString(item.createdOn)}</Text>
-      </View>
-    </TouchableHighlight>
+      <Swipeout right={swipeoutBtns}>
+        <TouchableHighlight onPress={() => {this.props.navigation.navigate('MemoDetail', { memo: item })}}>
+          <View style={styles.memoListItem}>
+            <Text style={styles.memoTitle}>{item.body.substring(0, 10)}</Text>
+            <Text style={styles.memoDate}>{dateString(item.createdOn)}</Text>
+          </View>
+        </TouchableHighlight>
+      </Swipeout> 
     );
   }
 
