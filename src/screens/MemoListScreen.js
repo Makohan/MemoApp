@@ -38,6 +38,16 @@ class MemoListScreen extends React.Component {
     this.setState({
       memoList: newMemoList,
     });
+
+    const db = firebase.firestore();
+    const { currentUser } = firebase.auth();
+    db.collection(`users/${currentUser.uid}/memos`).doc(deleteMemo['key']).delete()
+      .then(() => {
+        console.log('DELETE SUCCESS');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   render() {
