@@ -4,7 +4,7 @@ import firebase from 'firebase';
 
 import CircleButton from '../elements/CircleButton';
 
-class MemoCreateScreen extends React.Component {  
+class MemoCreateScreen extends React.Component {
   state = {
     body: '',
   }
@@ -26,17 +26,17 @@ class MemoCreateScreen extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <KeyboardAvoidingView style={styles.container} behavior="height" keyboardVerticalOffset={80}>
         <TextInput
           style={styles.memoEditInput}
           multiline
           value={this.state.body}
-          onChangeText={(text) => { this.setState({body: text})}}
+          onChangeText={(text) => { this.setState({ body: text }); }}
           underlineColorAndroid="transparent"
           textAlignVertical="top"
         />
-        <CircleButton name='check' onPress={this.handlePress.bind(this)} />
+        <CircleButton name="check" onPress={this.handlePress.bind(this)} />
       </KeyboardAvoidingView>
     );
   }
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     paddingRight: 16,
     paddingBottom: 16,
     fontSize: 16,
-  }
+  },
 });
 
 export default MemoCreateScreen;

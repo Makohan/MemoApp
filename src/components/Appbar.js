@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   appbarTitle: {
     color: '#fff',
     fontSize: 18,
-  }
+  },
 });
 
 export default Appbar;

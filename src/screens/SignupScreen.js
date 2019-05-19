@@ -2,7 +2,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableHighlight } from 'react-native';
 import firebase from 'firebase';
-import { StackActions, NavigationActions } from 'react-navigation'
+import { StackActions, NavigationActions } from 'react-navigation';
 
 class SignupScreen extends React.Component {
   state = {
@@ -19,7 +19,7 @@ class SignupScreen extends React.Component {
           index: 0,
           actions: [
             NavigationActions.navigate({ routeName: 'Home' }),
-          ]
+          ],
         });
         this.props.navigation.dispatch(resetAction);
       })
@@ -29,31 +29,31 @@ class SignupScreen extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <View style={styles.container}>
         <Text style={styles.title}>
           サインアップ
         </Text>
-        <TextInput 
+        <TextInput
           style={styles.input}
           value={this.state.email}
-          onChangeText={(text) => {this.setState({ email: text})}}
+          onChangeText={(text) => { this.setState({ email: text }); }}
           autoCapitalize="none"
           autoCorrect={false}
-          placeholder='Email Address'
+          placeholder="Email Address"
           underlineColorAndroid="transparent"
         />
         <TextInput
           style={styles.input}
           value={this.state.password}
-          onChangeText={(text) => {this.setState({ password: text})}}
+          onChangeText={(text) => { this.setState({ password: text }); }}
           autoCapitalize="none"
           autoCorrect={false}
-          placeholder='Password'
+          placeholder="Password"
           secureTextEntry
           underlineColorAndroid="transparent"
         />
-        <TouchableHighlight style={styles.button} onPress={this.handleSubmit.bind(this)} underlayColor='#C70F66'>
+        <TouchableHighlight style={styles.button} onPress={this.handleSubmit.bind(this)} underlayColor="#C70F66">
           <Text style={styles.buttnTitle}>登録する</Text>
         </TouchableHighlight>
       </View>
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#fff',
     alignSelf: 'center',
-  }
+  },
 });
 
 export default SignupScreen;
