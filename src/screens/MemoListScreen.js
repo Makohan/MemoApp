@@ -15,17 +15,14 @@ class MemoListScreen extends React.Component {
     const { currentUser } = firebase.auth();
     const db = firebase.firestore();
     db.collection(`users/${currentUser.uid}/memos`)
+      .orderBy('createdOn', 'desc')
       .onSnapshot((snapshot) => {
         const memoList = [];
         snapshot.forEach((doc) => {
           memoList.push({ ...doc.data(), key: doc.id });
-        })
+        });
         this.setState({ memoList });
       });
-      /* onSnapshotには例外キャッチが */
-      // .catch((error) => {
-      //   console.log(error);
-      // });
   }
 
   handlePress() {
@@ -33,15 +30,15 @@ class MemoListScreen extends React.Component {
   }
 
   deleteMemo(deleteMemo) {
-    console.log('deleteMemo:' + deleteMemo);
-    const newMemoList = this.state['memoList'].filter(memo => memo !== deleteMemo);
+    console.log(`deleteMemo: ${deleteMemo}`);
+    const newMemoList = this.state.memoList.filter(memo => memo !== deleteMemo);
     this.setState({
       memoList: newMemoList,
     });
 
     const db = firebase.firestore();
     const { currentUser } = firebase.auth();
-    db.collection(`users/${currentUser.uid}/memos`).doc(deleteMemo['key']).delete()
+    db.collection(`users/${currentUser.uid}/memos`).doc(deleteMemo.key).delete()
       .then(() => {
         console.log('DELETE SUCCESS');
       })
@@ -57,8 +54,17 @@ class MemoListScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+<<<<<<< HEAD
         <MemoList memoList={this.state.memoList} navigation={this.props.navigation} deleteMemo={(i) => this.deleteMemo(i) } myMethod={(i) => this.myMethod(i) }/>
         <CircleButton name='plus' onPress={this.handlePress.bind(this)} />
+=======
+        <MemoList
+          memoList={this.state.memoList}
+          navigation={this.props.navigation}
+          deleteMemo={(i) => { this.deleteMemo(i); }}
+        />
+        <CircleButton name="plus" onPress={this.handlePress.bind(this)} />
+>>>>>>> 39fc9afc3709e4415a6d62045d639872eeaa31d9
       </View>
     );
   }
@@ -69,7 +75,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     backgroundColor: '#FFFDF6',
-  }
-})
+  },
+});
 
 export default MemoListScreen;

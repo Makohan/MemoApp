@@ -4,7 +4,7 @@ import CircleButton from '../elements/CircleButton';
 
 import firebase from 'firebase';
 
-class MemoEditScreen extends React.Component {  
+class MemoEditScreen extends React.Component {
   state = {
     body: '',
     key: '',
@@ -32,7 +32,7 @@ class MemoEditScreen extends React.Component {
           body: this.state.body,
           key: this.state.key,
           createdOn: newDate,
-        })
+        });
         navigation.goBack();
       })
       .catch((error) => {
@@ -41,7 +41,7 @@ class MemoEditScreen extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <KeyboardAvoidingView style={styles.container} behavior="height" keyboardVerticalOffset={80}>
         <TextInput
           style={styles.memoEditInput}
@@ -51,13 +51,13 @@ class MemoEditScreen extends React.Component {
             this.setState({
               body: text,
               createdOn: new Date(),
-            }); 
+            });
           }}
           underlineColorAndroid="transparent"
           textAlignVertical="top"
         />
-        <CircleButton 
-          name='check'
+        <CircleButton
+          name="check"
           onPress={this.handlePress.bind(this)}
         />
       </KeyboardAvoidingView>
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     paddingRight: 16,
     paddingBottom: 16,
     fontSize: 16,
-  }
+  },
 });
 
 export default MemoEditScreen;

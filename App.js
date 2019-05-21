@@ -18,7 +18,7 @@ import MemoCreateScreen from './src/screens/MemoCreateScreen';
 
 import ENV from './env.json';
 
-require("firebase/firestore");
+require('firebase/firestore');
 
 const config = {
   apiKey:             ENV.FIREBASE_API_KEY,
@@ -53,7 +53,7 @@ const App = createStackNavigator({
           height: 80,
           paddingTop: 20,
         },
-      })
+      }),
     },
     headerTitleStyle: {
       color: '#fff',

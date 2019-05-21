@@ -6,7 +6,7 @@ import CircleButton from '../elements/CircleButton';
 const dateString = (date) => {
   const str = date.toDate().toISOString();
   return str.split('T')[0];
-}
+};
 
 class MemoDetailScreen extends React.Component {
   state = {
@@ -42,12 +42,11 @@ class MemoDetailScreen extends React.Component {
         </View>
 
         <CircleButton
-          name='pencil'
+          name="pencil"
           color="white"
           style={styles.editButton}
-          onPress={() => {this.props.navigation.navigate('MemoEdit', { ...memo, returnMemo: this.returnMemo.bind(this) })}}
-        >
-        </CircleButton>
+          onPress={() => { this.props.navigation.navigate('MemoEdit', { ...memo, returnMemo: this.returnMemo.bind(this) }); }}
+        />
       </View>
     );
   }
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
   },
   memoHeaderDate: {
     fontSize: 12,
-    color: '#fff'
+    color: '#fff',
   },
   memoContent: {
     paddingTop: 30,
