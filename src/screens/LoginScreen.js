@@ -15,7 +15,6 @@ class LoginScreen extends React.Component {
 
   // Reactコンポーネントをマウント（≒レンダリング）した後に実行する
   async componentDidMount() {
-<<<<<<< HEAD
     this.setState({ isLoading: false });
     
     // // 前回入力したID/パスワードで自動ログインする
@@ -25,15 +24,6 @@ class LoginScreen extends React.Component {
     //   this.setState({ isLoading: false});
     //   return;
     // }
-=======
-    // 前回入力したID/パスワードで自動ログインする
-    const email = await SecureStore.getItemAsync('email');
-    const password = await SecureStore.getItemAsync('password');
-    if (email == null || password == null) {
-      this.setState({ isLoading: false });
-      return;
-    }
->>>>>>> 39fc9afc3709e4415a6d62045d639872eeaa31d9
 
     // firebase.auth().signInWithEmailAndPassword(email, password)
     //   .then(() => {

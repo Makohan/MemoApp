@@ -3,19 +3,32 @@ import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableHighlight, Image, Button } from 'react-native';
 import firebase from 'firebase';
 import { StackActions, NavigationActions } from 'react-navigation';
-import { ImagePicker } from 'expo';
+import { ImagePicker, Permissions } from 'expo';
 
 class SignupScreen extends React.Component {
   state = {
     email: '',
     password: '',
-    image: null,
+    photo: null,
+    hasCameraRollPermission: null,
+  }
+
+  async componentWillMount() {
+    // カメラロールに対するPermissionを許可
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    this.setState({ hasCameraRollPermission: status === 'granted' });
   }
 
   handleSubmit() {
     // firebaseにユーザ登録する
     firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then((user) => {
+        
+        // TODO 画像アップロード(user.uidをURLパスに付与する)
+        // firestorageに画像をアップロードする
+        
+
+
         // ログイン後にBackボタンを無効にするための処理
         const resetAction = StackActions.reset({
           index: 0,
@@ -30,21 +43,8 @@ class SignupScreen extends React.Component {
       });
   }
 
-  async pickImage() {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      aspect: [4, 3],
-    });
-
-    console.log(result);
-
-    if (!result.cancelled) {
-      this.setState({ image: result.uri });
-    }
-  }
-
   render() {
-    const { image } = this.state;
+    const { hasCameraRollPermission, photo } = this.state;
 
     return (
       <View style={styles.container}>
@@ -70,14 +70,22 @@ class SignupScreen extends React.Component {
           secureTextEntry
           underlineColorAndroid="transparent"
         />
-        <Button
-          title="Pick an image from camera roll"
-          onPress={this.pickImage}
-        />
         {
-          image
-          && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+          hasCameraRollPermission
+          &&
+          photo
+          &&
+          <Image source={{ uri: photo.uri }} style={styles.image} />
         }
+        <Button 
+          style={styles.button}
+          title={"プロフィール画像を選択"}
+          onPress={async () => {
+            let result = await ImagePicker.launchImageLibraryAsync();
+            console.log(result);
+            this.setState({ photo: result });
+          }}
+        />
         <TouchableHighlight style={styles.button} onPress={this.handleSubmit.bind(this)} underlayColor="#C70F66">
           <Text style={styles.buttnTitle}>登録する</Text>
         </TouchableHighlight>
@@ -121,9 +129,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   image: {
-    width: 100,
-    height: 50,
-    marginBottom: 24,
+    alignSelf: 'center',
+    width: 200,
+    height: 200,
   },
 });
 
