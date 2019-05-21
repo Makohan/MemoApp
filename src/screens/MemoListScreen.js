@@ -50,10 +50,14 @@ class MemoListScreen extends React.Component {
       });
   }
 
+  myMethod(i) {
+    console.log(i);
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <MemoList memoList={this.state.memoList} navigation={this.props.navigation} deleteMemo={(i) => this.deleteMemo(i) } />
+        <MemoList memoList={this.state.memoList} navigation={this.props.navigation} deleteMemo={(i) => this.deleteMemo(i) } myMethod={(i) => this.myMethod(i) }/>
         <CircleButton name='plus' onPress={this.handlePress.bind(this)} />
       </View>
     );

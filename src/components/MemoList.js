@@ -23,7 +23,7 @@ class MemoList extends React.Component {
 
     return (
       <Swipeout right={swipeoutBtns}>
-        <TouchableHighlight onPress={() => {this.props.navigation.navigate('MemoDetail', { memo: item })}}>
+        <TouchableHighlight onPress={() => {this.props.myMethod(1)}}>
           <View style={styles.memoListItem}>
             <Text style={styles.memoTitle}>{item.body.substring(0, 10)}</Text>
             <Text style={styles.memoDate}>{dateString(item.createdOn)}</Text>

@@ -1,13 +1,15 @@
 
 import React from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableHighlight } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableHighlight, Image, Button } from 'react-native';
 import firebase from 'firebase';
-import { StackActions, NavigationActions } from 'react-navigation'
+import { StackActions, NavigationActions } from 'react-navigation';
+import { ImagePicker } from 'expo';
 
 class SignupScreen extends React.Component {
   state = {
     email: '',
     password: '',
+    image: null,
   }
 
   handleSubmit() {
@@ -28,32 +30,55 @@ class SignupScreen extends React.Component {
       });
   }
 
+  async pickImage() {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      this.setState({ image: result.uri });
+    }
+  }
+
   render() {
-    return(
+    const { image } = this.state;
+
+    return (
       <View style={styles.container}>
         <Text style={styles.title}>
           サインアップ
         </Text>
-        <TextInput 
+        <TextInput
           style={styles.input}
           value={this.state.email}
-          onChangeText={(text) => {this.setState({ email: text})}}
+          onChangeText={(text) => { this.setState({ email: text }); }}
           autoCapitalize="none"
           autoCorrect={false}
-          placeholder='Email Address'
+          placeholder="Email Address"
           underlineColorAndroid="transparent"
         />
         <TextInput
           style={styles.input}
           value={this.state.password}
-          onChangeText={(text) => {this.setState({ password: text})}}
+          onChangeText={(text) => { this.setState({ password: text }); }}
           autoCapitalize="none"
           autoCorrect={false}
-          placeholder='Password'
+          placeholder="Password"
           secureTextEntry
           underlineColorAndroid="transparent"
         />
-        <TouchableHighlight style={styles.button} onPress={this.handleSubmit.bind(this)} underlayColor='#C70F66'>
+        <Button
+          title="Pick an image from camera roll"
+          onPress={this.pickImage}
+        />
+        {
+          image
+          && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+        }
+        <TouchableHighlight style={styles.button} onPress={this.handleSubmit.bind(this)} underlayColor="#C70F66">
           <Text style={styles.buttnTitle}>登録する</Text>
         </TouchableHighlight>
       </View>
@@ -94,7 +119,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#fff',
     alignSelf: 'center',
-  }
+  },
+  image: {
+    width: 100,
+    height: 50,
+    marginBottom: 24,
+  },
 });
 
 export default SignupScreen;

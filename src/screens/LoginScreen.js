@@ -15,19 +15,21 @@ class LoginScreen extends React.Component {
 
   // Reactコンポーネントをマウント（≒レンダリング）した後に実行する
   async componentDidMount() {
-    // 前回入力したID/パスワードで自動ログインする
-    const email = await SecureStore.getItemAsync('email');
-    const password = await SecureStore.getItemAsync('password');
-    if (email == null || password == null) {
-      this.setState({ isLoading: false});
-      return;
-    }
+    this.setState({ isLoading: false });
+    
+    // // 前回入力したID/パスワードで自動ログインする
+    // const email = await SecureStore.getItemAsync('email');
+    // const password = await SecureStore.getItemAsync('password');
+    // if (email == null || password == null) {
+    //   this.setState({ isLoading: false});
+    //   return;
+    // }
 
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(() => {
-        this.setState({ isLoading: false });
-        this.navigationToHome();
-      });
+    // firebase.auth().signInWithEmailAndPassword(email, password)
+    //   .then(() => {
+    //     this.setState({ isLoading: false });
+    //     this.navigationToHome();
+    //   });
   }
 
   navigationToHome() {
