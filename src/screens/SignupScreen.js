@@ -4,6 +4,7 @@ import { StyleSheet, View, Text, TextInput, TouchableHighlight, Image, Button } 
 import firebase from 'firebase';
 import { StackActions, NavigationActions } from 'react-navigation';
 import { ImagePicker, Permissions } from 'expo';
+import firebase from 'firebase';
 
 class SignupScreen extends React.Component {
   state = {
@@ -23,24 +24,43 @@ class SignupScreen extends React.Component {
     // firebaseにユーザ登録する
     firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then((user) => {
-        
         // TODO 画像アップロード(user.uidをURLパスに付与する)
         // firestorageに画像をアップロードする
-        
+        console.log(user.user.uid);
+        console.log(this.state.photo);
 
+        // Create a root reference
+        var storageRef = firebase.storage().ref();
+        var profileImageRef = storageRef.child(this.state.photo.uri);
+        profileImageRef.put(this.state.photo)
+          .then(function(snapshot) {
+            console.log("Succdss");
+            console.log({snapshot});
+          })
+          .catch(function(error){
+            console.error('There was an error uploading a file to Cloud Storage:', error);
+           });
 
-        // ログイン後にBackボタンを無効にするための処理
-        const resetAction = StackActions.reset({
-          index: 0,
-          actions: [
-            NavigationActions.navigate({ routeName: 'Home' }),
-          ],
-        });
-        this.props.navigation.dispatch(resetAction);
+        // // ログイン後にBackボタンを無効にするための処理
+        // const resetAction = StackActions.reset({
+        //   index: 0,
+        //   actions: [
+        //     NavigationActions.navigate({ routeName: 'Home' }),
+        //   ],
+        // });
+        // this.props.navigation.dispatch(resetAction);
       })
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  async pickImage() {
+    const result = await ImagePicker.launchImageLibraryAsync();
+    if (result.cancelled) {
+      return;
+    }
+    this.setState({ photo: result });
   }
 
   render() {
@@ -72,19 +92,13 @@ class SignupScreen extends React.Component {
         />
         {
           hasCameraRollPermission
-          &&
-          photo
-          &&
-          <Image source={{ uri: photo.uri }} style={styles.image} />
+          && photo
+          && <Image source={{ uri: photo.uri }} style={styles.image} />
         }
-        <Button 
+        <Button
           style={styles.button}
-          title={"プロフィール画像を選択"}
-          onPress={async () => {
-            let result = await ImagePicker.launchImageLibraryAsync();
-            console.log(result);
-            this.setState({ photo: result });
-          }}
+          title="プロフィール画像を選択"
+          onPress={async () => { await this.pickImage(); }}
         />
         <TouchableHighlight style={styles.button} onPress={this.handleSubmit.bind(this)} underlayColor="#C70F66">
           <Text style={styles.buttnTitle}>登録する</Text>
