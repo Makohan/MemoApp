@@ -4,7 +4,6 @@ import { StyleSheet, View, Text, TextInput, TouchableHighlight, Image, Button } 
 import firebase from 'firebase';
 import { StackActions, NavigationActions } from 'react-navigation';
 import { ImagePicker, Permissions } from 'expo';
-import firebase from 'firebase';
 
 class SignupScreen extends React.Component {
   state = {
@@ -21,18 +20,20 @@ class SignupScreen extends React.Component {
   }
 
   handleSubmit() {
-    // firebaseにユーザ登録する
-    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then((user) => {
-        // TODO 画像アップロード(user.uidをURLパスに付与する)
-        // firestorageに画像をアップロードする
-        console.log(user.user.uid);
-        console.log(this.state.photo);
+    // // firebaseにユーザ登録する
+    // firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+    //   .then((user) => {
+    //     // TODO 画像アップロード(user.uidをURLパスに付与する)
+    //     // firestorageに画像をアップロードする
+    //     console.log(user.user.uid);
+    //     console.log(this.state.photo);
 
         // Create a root reference
-        var storageRef = firebase.storage().ref();
-        var profileImageRef = storageRef.child(this.state.photo.uri);
-        profileImageRef.put(this.state.photo)
+        const storageRef = firebase.storage().ref();
+        console.log('A');
+        const profileImageRef = storageRef.child('profile.jpg');
+        console.log('B');
+        profileImageRef.put(new File(this.state.photo.uri, 'TEST'))
           .then(function(snapshot) {
             console.log("Succdss");
             console.log({snapshot});
@@ -49,15 +50,17 @@ class SignupScreen extends React.Component {
         //   ],
         // });
         // this.props.navigation.dispatch(resetAction);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      // })
+      // .catch((error) => {
+      //   console.log(error);
+      // });
   }
 
   async pickImage() {
+    console.log('pickImage');
     const result = await ImagePicker.launchImageLibraryAsync();
     if (result.cancelled) {
+      console.log('image cancel');
       return;
     }
     this.setState({ photo: result });
@@ -136,6 +139,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     width: '70%',
+    marginBottom: 10,
   },
   buttnTitle: {
     fontSize: 18,
@@ -146,6 +150,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: 200,
     height: 200,
+    marginBottom: 10,
   },
 });
 
