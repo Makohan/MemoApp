@@ -21,44 +21,47 @@ class SignupScreen extends React.Component {
 
   handleSubmit() {
     // // firebaseにユーザ登録する
-    // firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-    //   .then((user) => {
-    //     // TODO 画像アップロード(user.uidをURLパスに付与する)
-    //     // firestorageに画像をアップロードする
-    //     console.log(user.user.uid);
-    //     console.log(this.state.photo);
+    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then((user) => {
+        // TODO 画像アップロード(user.uidをURLパスに付与する)
+        // firestorageに画像をアップロードする
+        if (!this.state.cancelled) {
+          const metadata = {
+            name: 'profile',
+            contentType: 'image/jpeg',
+          };
 
-        // Create a root reference
-        const storageRef = firebase.storage().ref();
-        console.log('A');
-        const profileImageRef = storageRef.child('profile.jpg');
-        console.log('B');
-        profileImageRef.put(new File(this.state.photo.uri, 'TEST'))
-          .then(function(snapshot) {
-            console.log("Succdss");
-            console.log({snapshot});
-          })
-          .catch(function(error){
-            console.error('There was an error uploading a file to Cloud Storage:', error);
-           });
+          // Create a root reference
+          const storageRef = firebase.storage().ref();
+          const profileImageRef = storageRef.child(`${user.user.uid}/profile.jpg`);
+          console.log(this.state.photo);
+          profileImageRef.putString(this.state.photo.base64, metadata)
+            .then((snapshot) => {
+              console.log('Success');
+              console.log({ snapshot });
+            })
+            .catch((error) => {
+              console.error('There was an error uploading a file to Cloud Storage:', error);
+            });
+        }
 
-        // // ログイン後にBackボタンを無効にするための処理
-        // const resetAction = StackActions.reset({
-        //   index: 0,
-        //   actions: [
-        //     NavigationActions.navigate({ routeName: 'Home' }),
-        //   ],
-        // });
-        // this.props.navigation.dispatch(resetAction);
-      // })
-      // .catch((error) => {
-      //   console.log(error);
-      // });
+        // ログイン後にBackボタンを無効にするための処理
+        const resetAction = StackActions.reset({
+          index: 0,
+          actions: [
+            NavigationActions.navigate({ routeName: 'Home' }),
+          ],
+        });
+        this.props.navigation.dispatch(resetAction);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   async pickImage() {
     console.log('pickImage');
-    const result = await ImagePicker.launchImageLibraryAsync();
+    const result = await ImagePicker.launchImageLibraryAsync({ base64: true });
     if (result.cancelled) {
       console.log('image cancel');
       return;

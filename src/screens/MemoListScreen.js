@@ -47,10 +47,6 @@ class MemoListScreen extends React.Component {
       });
   }
 
-  myMethod(i) {
-    console.log(i);
-  }
-
   render() {
     return (
       <View style={styles.container}>
