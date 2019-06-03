@@ -26,16 +26,11 @@ class SignupScreen extends React.Component {
         // TODO 画像アップロード(user.uidをURLパスに付与する)
         // firestorageに画像をアップロードする
         if (!this.state.cancelled) {
-          const metadata = {
-            name: 'profile',
-            contentType: 'image/jpeg',
-          };
-
           // Create a root reference
           const storageRef = firebase.storage().ref();
           const profileImageRef = storageRef.child(`${user.user.uid}/profile.jpg`);
           console.log(this.state.photo);
-          profileImageRef.putString(this.state.photo.base64, metadata)
+          profileImageRef.putString(this.state.photo.base64, 'base64')
             .then((snapshot) => {
               console.log('Success');
               console.log({ snapshot });
@@ -60,10 +55,8 @@ class SignupScreen extends React.Component {
   }
 
   async pickImage() {
-    console.log('pickImage');
     const result = await ImagePicker.launchImageLibraryAsync({ base64: true });
     if (result.cancelled) {
-      console.log('image cancel');
       return;
     }
     this.setState({ photo: result });
